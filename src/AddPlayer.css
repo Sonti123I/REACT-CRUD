@@ -1,0 +1,77 @@
+form {
+  background-color: transparent; /* No card-like look */
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+form h1 {
+  text-align: center;
+  font-size: 22px;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.InputDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.InputDetails label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.InputDetails input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #f9f9f9;
+  color: #222;
+}
+
+.InputDetails input:focus {
+  border-color: #007bff;
+  outline: none;
+  background-color: #fff;
+}
+
+.Buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.Buttons button {
+  flex: 1;
+  padding: 10px;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.Buttons button[type='submit'] {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.Buttons button[type='submit']:hover {
+  background-color: #0056b3;
+}
+
+.Buttons button[type='button'] {
+  background-color: #ddd;
+  color: #333;
+}
+
+.Buttons button[type='button']:hover {
+  background-color: #bbb;
+}
