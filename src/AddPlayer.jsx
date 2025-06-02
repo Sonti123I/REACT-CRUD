@@ -1,49 +1,162 @@
-import { useState } from "react"
-import "./AddPlayer.css"
+import { useState } from 'react';
+import './App.css';
+import data from "./data.json";
+import PlayerDetails from './PlayerDetails';
+import EditDetails from './EditDetails';
+import AddPlayer from './AddPlayer';
+import DeletePlayer from './DeletePlayer';
+import SearchPlayer from './SearchPlayer';
 
-const AddPlayer = ({onCancel,onAddPlayer}) =>{
 
-    const [newName,setNewName] = useState("");
-    const [newAge,setNewAge] = useState("");
-    const [newPosition,setNewPosition] = useState("");
 
-    const handleUpdaterList = (e) => {
-    e.preventDefault();
-    const newPlayer = {
-      id : Math.floor(Math.random()*100),
-      name : newName,
-      age : parseInt(newAge),
-      position : newPosition
-    }
-    onAddPlayer(newPlayer);
-    // after setting the player in the given data file then we need to clear the form data
-    setNewName("");
-    setNewAge("");
-    setNewPosition("")
-    }
+function App() {
 
-    return(
+  // These are for players getting created
+  const [players,setNewplayer] = useState(data.players);
+  const [showForm,setShowForm] = useState(false);
+  // These are for players getting created
+
+  // These are for players getting Editted
+  const [editId,setEditId] = useState(null);
+  const [showEditForm, setShowEditForm] = useState(false);
+  // These are for players getting Edited
+
+  // These are for player getting deleted
+  const [deleteId,setDeleteId] = useState(null);
+  const [showDeleteForm,setShowDeleteForm] = useState(false);
+  // These are for player getting deleted
+
+  // These are for player to search
+  const [searchId,setSearchId] = useState(null);
+  const [showSearchForm,setShowSearchForm] = useState(false);
+  // These are for player to search
+
+  // These function is to handle search player event bro 
+  const handleSearchId = (id) => {
+    setSearchId(id);
+  }
+
+  const handleSearchForm = () => {
+    setShowSearchForm(true);
+    setShowForm(false);
+    setShowDeleteForm(false);
+    setShowEditForm(false);
+  }
+
+
+  // These is to handle the addplayer component
+  const handleShowForm = () => {
+    setShowForm(true);
+    setShowSearchForm(false);
+    setShowDeleteForm(false);
+    setShowEditForm(false);
+  }
+ 
+   const handleAddPlayer = (newPlayer) => {
+    setNewplayer([...players, newPlayer]);
+    setShowForm(false); 
+  };
+  // These is to handle the addPlayer component
+
+  // here we will implement the edited details in the PlayerDetails
+  const handleEditId = (id) => {
+    setEditId(id);
+    setShowEditForm(true);
+    setShowSearchForm(false);
+    setDeleteId(false);
+    setShowForm(false);
+  }
+  // here we will implement the edited details in the PlayerDetails
+
+  // These is to handle edit details
+  const handleUpdateDetails = (updatedPlayer) => {
+        setNewplayer(players.map((player) => player.id === updatedPlayer.id?updatedPlayer:player));
+        setShowEditForm(false);
+    };
+  // These is to handle edit details  
+
+  // These is to handle delete details
+  const handleDelete = (id) => {
+    setDeleteId(id);
+    setShowDeleteForm(true);
+    setShowEditForm(false);
+    setShowSearchForm(false);
+    setShowForm(false);
+  }
+
+  const handleDeleteDetails = (deleteId) => {
+    setNewplayer(players.filter((player) => player.id !== deleteId));
+    setShowDeleteForm(false);
+  }
+
+  const handleClearSearch = () => {
+    setSearchId(null);
+  }
+  // These is to handle delete details
+
+  return(
     <>
-        <form onSubmit={handleUpdaterList}>
-          <h1>Add new player</h1>
-          <div className="InputDetails">
-            <label htmlFor='name'>Name</label>
-            <input type='text' id='name' value={newName} onChange={(e) => setNewName(e.target.value)}></input>
+       <div className="MainLayout">
+      
+      {/* Left Side: Player Details */}
+      <div className="LeftPanel">
+        <PlayerDetails
+          Players={players}
+          addPlayer={handleShowForm}
+          onEdit={handleEditId}
+          onDelete={handleDelete}
+          searchPlayer={handleSearchForm}
+          searchPlayerId={searchId}
+          clearSearch={handleClearSearch}
+        />
+      </div>
+
+      {/* Right Side: Conditional Rendering of Forms */}
+      <div className="RightPanel">
+        {showForm && (
+          <div className="FormWrapper">
+            <AddPlayer
+              onAddPlayer={handleAddPlayer}
+              onCancel={() => setShowForm(false)}
+            />
           </div>
-          <div className="InputDetails">
-            <label htmlFor='age'>Age</label>
-            <input type='text' id='age' value={newAge} onChange={(e) => setNewAge(e.target.value)}></input>
+        )}
+
+        {showEditForm && editId !== null && (
+          <div className="FormWrapper">
+            <EditDetails
+              Players={players}
+              onUpdatePlayer={handleUpdateDetails}
+              onCancel={() => setShowEditForm(false)}
+              playerID={editId}
+            />
           </div>
-          <div className="InputDetails">
-            <label htmlFor='position'>Position</label>
-            <input type='text' id='position' value={newPosition} onChange={(e) => setNewPosition(e.target.value)}></input>
+        )}
+
+        {showDeleteForm && deleteId !== null && (
+          <div className="FormWrapper">
+            <DeletePlayer
+              Players={players}
+              onConfirmDelete={handleDeleteDetails}
+              onCancel={() => setShowDeleteForm(false)}
+              playerID={deleteId}
+            />
           </div>
-          <div className="Buttons">
-            <button type='submit'>Submit</button>
-            <button type= "button" onClick={onCancel}>cancel</button>
+        )}
+
+        {showSearchForm  && (
+          <div className="FormWrapper">
+            <SearchPlayer
+              onSearch={handleSearchForm}
+              searchedPlayer={handleSearchId}
+            />
           </div>
-        </form>
-    </>)
+        )}
+
+      </div>
+    </div>
+    </>
+  )
 }
 
-export default AddPlayer;
+export default App;
