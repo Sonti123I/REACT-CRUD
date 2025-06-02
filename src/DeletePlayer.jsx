@@ -3,6 +3,11 @@ import "./DeletePlayer.css";
 
 const DeletePlayer = ({Players,playerID, onConfirmDelete, onCancel}) => {
     const getPlayerWhichIsGoingToBeDeleted = Players.find((player) => player.id === playerID);
+
+    if (!getPlayerWhichIsGoingToBeDeleted) {
+        return <h2>Player not found</h2>;
+    }
+    
     return(
         <>
             <div className="mainContainer">
