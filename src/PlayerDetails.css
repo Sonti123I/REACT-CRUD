@@ -86,3 +86,29 @@
 .ButtonsInPlayer button:last-child:hover {
   background-color: #fab1a0;
 }
+
+/* Add Player Button */
+#Search {
+  padding: 10px 18px;
+  font-size: 1rem;
+  background-color: #0984e3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-bottom: 25px;
+}
+
+#Search:hover {
+  background-color: #74b9ff;
+}
+
+.mainButtons{
+  display: flex;
+  height: 60px;
+  width: 400px;
+  margin-left: 160px;
+  justify-content: space-evenly;
+  align-items: center;
+}
