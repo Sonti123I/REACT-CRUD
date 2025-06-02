@@ -5,6 +5,7 @@ import PlayerDetails from './PlayerDetails';
 import EditDetails from './EditDetails';
 import AddPlayer from './AddPlayer';
 import DeletePlayer from './DeletePlayer';
+import SearchPlayer from './SearchPlayer';
 
 
 
@@ -23,11 +24,30 @@ function App() {
   // These are for player getting deleted
   const [deleteId,setDeleteId] = useState(null);
   const [showDeleteForm,setShowDeleteForm] = useState(false);
+  // These are for player getting deleted
+
+  // These are for player to search
+  const [searchId,setSearchId] = useState(null);
+  const [showSearchForm,setShowSearchForm] = useState(false);
+  // These are for player to search
+
+  // These function is to handle search player event bro 
+  const handleSearchId = (id) => {
+    setSearchId(id);
+  }
+
+  const handleSearchForm = () => {
+    setShowSearchForm(true);
+    setShowForm(false);
+    setShowDeleteForm(false);
+    setShowEditForm(false);
+  }
+
 
   // These is to handle the addplayer component
   const handleShowForm = () => {
-    console.log("Add Player clicked!");
     setShowForm(true);
+    setShowSearchForm(false);
     setShowDeleteForm(false);
     setShowEditForm(false);
   }
@@ -42,12 +62,11 @@ function App() {
   const handleEditId = (id) => {
     setEditId(id);
     setShowEditForm(true);
+    setShowSearchForm(false);
     setDeleteId(false);
     setShowForm(false);
   }
   // here we will implement the edited details in the PlayerDetails
-
-
 
   // These is to handle edit details
   const handleUpdateDetails = (updatedPlayer) => {
@@ -61,13 +80,17 @@ function App() {
     setDeleteId(id);
     setShowDeleteForm(true);
     setShowEditForm(false);
+    setShowSearchForm(false);
     setShowForm(false);
   }
 
   const handleDeleteDetails = (deleteId) => {
     setNewplayer(players.filter((player) => player.id !== deleteId));
     setShowDeleteForm(false);
+  }
 
+  const handleClearSearch = () => {
+    setSearchId(null);
   }
   // These is to handle delete details
 
@@ -82,6 +105,9 @@ function App() {
           addPlayer={handleShowForm}
           onEdit={handleEditId}
           onDelete={handleDelete}
+          searchPlayer={handleSearchForm}
+          searchPlayerId={searchId}
+          clearSearch={handleClearSearch}
         />
       </div>
 
@@ -117,6 +143,16 @@ function App() {
             />
           </div>
         )}
+
+        {showSearchForm  && (
+          <div className="FormWrapper">
+            <SearchPlayer
+              onSearch={handleSearchForm}
+              searchedPlayer={handleSearchId}
+            />
+          </div>
+        )}
+
       </div>
     </div>
     </>
