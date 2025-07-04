@@ -29,23 +29,23 @@ const EditDetails = ({Players,playerID,onUpdatePlayer,onCancel}) => {
         setNewPosition("");
     }
 
-    useEffect(() => {
-        if(newName!== getEditedPlayer.name){
-            setNewName(getEditedPlayer.name);
-        }
-    },[getEditedPlayer])
+    // useEffect(() => {
+    //     if(newName!== getEditedPlayer.name){
+    //         setNewName(getEditedPlayer.name);
+    //     }
+    // },[getEditedPlayer])
 
-    useEffect(() => {
-        if(newAge!== getEditedPlayer.age){
-            setNewAge(getEditedPlayer.age);
-        }
-    },[getEditedPlayer])
+    // useEffect(() => {
+    //     if(newAge!== getEditedPlayer.age){
+    //         setNewAge(getEditedPlayer.age);
+    //     }
+    // },[getEditedPlayer])
 
-    useEffect(() => {
-        if(newPosition!== getEditedPlayer.position){
-            setNewPosition(getEditedPlayer.position);
-        }
-    },[getEditedPlayer])
+    // useEffect(() => {
+    //     if(newPosition!== getEditedPlayer.position){
+    //         setNewPosition(getEditedPlayer.position);
+    //     }
+    // },[getEditedPlayer])
 
 
 
